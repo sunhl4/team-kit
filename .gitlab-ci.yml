@@ -1,0 +1,11 @@
+kit:
+  image: python:3.12
+  script:
+    - pip install pytest
+    - python -m pytest -q tests
+    - python scripts/team.py new-pkg ci_probe /tmp/ci-probe
+    - pip install -e "/tmp/ci-probe[dev]"
+    - bash /tmp/ci-probe/gates/check.sh
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

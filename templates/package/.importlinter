@@ -1,0 +1,11 @@
+[importlinter]
+root_package = {{package_name}}
+
+[importlinter:contract:layers]
+name = Cosmic layers
+type = layers
+layers =
+    {{package_name}}.entrypoints
+    {{package_name}}.services
+    {{package_name}}.adapters
+    {{package_name}}.models

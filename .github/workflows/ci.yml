@@ -1,0 +1,20 @@
+name: team-kit
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+jobs:
+  kit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install pytest
+      - run: python -m pytest -q tests
+      - run: python scripts/team.py new-pkg ci_probe /tmp/ci-probe
+      - run: python -m pip install -e ".[dev]"
+        working-directory: /tmp/ci-probe
+      - run: bash gates/check.sh
+        working-directory: /tmp/ci-probe

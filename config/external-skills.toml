@@ -1,0 +1,8 @@
+# 组里已经有的 Skill。本套件不重写这些流程，只接线。
+
+[literature]
+name = "academic-paper"
+mode = "lit-review"
+path = "~/.cursor/skills/academic-paper"
+invoke = "使用 academic-paper 的 lit-review 模式，产出调研报告。不要在 team-kit 里重做检索或综述。"
+handoff = "报告落盘后，用 use-lit-report 抽成 specs/<id>/card.md，再走 spec-clarity-gate。"
