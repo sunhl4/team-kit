@@ -21,6 +21,7 @@
 python3 scripts/team.py new-spec <id> <slug>
 python3 scripts/team.py new-pkg <module_name> <dest>
 python3 scripts/team.py apply <existing_repo>
+python3 scripts/team.py apply-assignment 001-makespan <dest> --module <name>
 python3 scripts/team.py check
 ```
 

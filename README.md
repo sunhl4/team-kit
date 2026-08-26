@@ -2,7 +2,7 @@
 
 组员用各自的 Cursor / Claude Code / Codex，在同一 Git 仓写算法包或软件包。人读这一屏；模型读 `AGENTS.md` 和 `.agents/skills/`。
 
-GitHub 模板仓：<https://github.com/sunhl4/team-kit>（Use this template）。不要往 QVibe / qdata / ionstack 内核里套本套件。
+GitHub 模板仓：<https://github.com/sunhl4/team-kit>（Use this template）。当前是 **public**：免费私人仓无法锁 `main`。要私有且保留保护，转到公司 org 或升级 GitHub Pro。不要往 QVibe / qdata / ionstack 内核里套本套件。
 
 ```bash
 gh repo create my-algo --template sunhl4/team-kit --private --clone
@@ -32,6 +32,13 @@ python3 scripts/team.py apply /path/to/existing-repo
 ```
 
 新包自带四层 `src`、ruff、import-linter、pytest、GitHub / GitLab CI。
+
+第 12–14 天作业（三家 agent 同一条 spec）：`assignments/001-makespan/`。Cursor 路径的试点实现仓：<https://github.com/sunhl4/route-pilot>。
+
+```bash
+bash scripts/day14_verify.sh
+bash scripts/worktree.sh spec/001/cursor
+```
 
 保护 GitHub `main`（禁止直推，CI 必须绿；组员到齐后再把 CODEOWNERS 审开关打开）：
 

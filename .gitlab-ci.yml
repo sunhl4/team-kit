@@ -1,11 +1,9 @@
 kit:
   image: python:3.12
   script:
-    - pip install pytest
+    - pip install pytest ruff import-linter hatchling
     - python -m pytest -q tests
-    - python scripts/team.py new-pkg ci_probe /tmp/ci-probe
-    - pip install -e "/tmp/ci-probe[dev]"
-    - bash /tmp/ci-probe/gates/check.sh
+    - bash scripts/day14_verify.sh /tmp/day14
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
