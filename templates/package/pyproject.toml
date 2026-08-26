@@ -2,7 +2,7 @@
 name = "{{package_dist}}"
 version = "0.1.0"
 description = "Team algorithm/software package"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 dependencies = []
 
 [project.optional-dependencies]

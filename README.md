@@ -33,6 +33,13 @@ python3 scripts/team.py apply /path/to/existing-repo
 
 新包自带四层 `src`、ruff、import-linter、pytest、GitHub / GitLab CI。
 
+第 12–14 天作业（三家 agent 同一条 spec）：`assignments/001-makespan/`。Cursor 路径的试点实现仓：<https://github.com/sunhl4/route-pilot>。
+
+```bash
+bash scripts/day14_verify.sh
+bash scripts/worktree.sh spec/001/cursor
+```
+
 保护 GitHub `main`（禁止直推，CI 必须绿；组员到齐后再把 CODEOWNERS 审开关打开）：
 
 ```bash

@@ -30,8 +30,9 @@ def _changed_files(root: Path, base: str) -> list[str]:
         text = _git(root, "diff", "--name-only", "HEAD")
     unstaged = _git(root, "diff", "--name-only")
     staged = _git(root, "diff", "--name-only", "--cached")
+    untracked = _git(root, "ls-files", "--others", "--exclude-standard")
     names = set()
-    for blob in (text, unstaged, staged):
+    for blob in (text, unstaged, staged, untracked):
         names.update(line.strip() for line in blob.splitlines() if line.strip())
     return sorted(names)
 
@@ -77,11 +78,10 @@ def main() -> int:
     spec_touched = any(
         f.startswith("specs/") and f.endswith("/spec.md") for f in files
     )
-    existing = list((root / "specs").glob("*/spec.md")) if (root / "specs").is_dir() else []
-    if spec_touched or existing:
-        print("ok: spec.md present for src change")
+    if spec_touched:
+        print("ok: spec.md in diff")
         return 0
-    print("src/ or tests/ changed without specs/*/spec.md", file=sys.stderr)
+    print("src/ or tests/ changed without specs/*/spec.md in the diff", file=sys.stderr)
     return 1
 
 

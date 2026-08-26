@@ -150,6 +150,36 @@ def cmd_apply(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_apply_assignment(args: argparse.Namespace) -> int:
+    kit = _kit_root()
+    dest = Path(args.dest).expanduser().resolve()
+    src = kit / "assignments" / args.assignment
+    example = kit / "examples" / args.assignment
+    if not src.is_dir():
+        print(f"missing {src}", file=sys.stderr)
+        return 2
+    spec_id = args.assignment.split("-", 1)[0]
+    mapping = {
+        "package_name": args.module,
+        "package_dist": args.module.replace("_", "-"),
+        "spec_id": spec_id,
+    }
+    _copy_tree(src, dest / "specs" / spec_id, mapping)
+    (dest / "specs" / ".active").write_text(spec_id + "\n", encoding="utf-8")
+    if example.is_dir():
+        pkg = dest / "src" / args.module
+        if (example / "models").is_dir():
+            _copy_tree(example / "models", pkg / "models", mapping)
+        if (example / "services").is_dir():
+            _copy_tree(example / "services", pkg / "services", mapping)
+        if (example / "entrypoints").is_dir():
+            _copy_tree(example / "entrypoints", pkg / "entrypoints", mapping)
+        if (example / "tests").is_dir():
+            _copy_tree(example / "tests", dest / "tests", mapping)
+    print(dest / "specs" / spec_id)
+    return 0
+
+
 def cmd_check(args: argparse.Namespace) -> int:
     root = Path(args.root).resolve()
     script = root / "gates" / "check.sh"
@@ -185,6 +215,12 @@ def main(argv: list[str] | None = None) -> int:
     p_apply = sub.add_parser("apply")
     p_apply.add_argument("dest")
     p_apply.set_defaults(func=cmd_apply)
+
+    p_asg = sub.add_parser("apply-assignment")
+    p_asg.add_argument("assignment")
+    p_asg.add_argument("dest")
+    p_asg.add_argument("--module", required=True)
+    p_asg.set_defaults(func=cmd_apply_assignment)
 
     p_check = sub.add_parser("check")
     p_check.add_argument("--root", default=".")
