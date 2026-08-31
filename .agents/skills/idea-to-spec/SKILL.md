@@ -12,8 +12,8 @@ description: Turns a new project or algorithm idea into specs/<id>/ files. Use w
 |------|------|
 | `card.md` | 一句话目标、非目标 |
 | `spec.md` | 行为、接口 JSON Schema、错误、完成条件 |
-| `plan.md` | 四层各放什么（models / adapters / services / entrypoints） |
-| `tasks.md` | 可单独测的任务，一条一个测试 |
+| `plan.md` | 四层各放什么；`## Exclusive paths` 列出独占文件 |
+| `tasks.md` | 可单独测的任务，一条写 `test_*` 名 |
 
 3. `spec.md` 必须有这些标题：`Goal` `Interface` `Tests` `Out of scope`。
 4. 停。等人跑 `spec-clarity-gate`。

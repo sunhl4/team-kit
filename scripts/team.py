@@ -166,6 +166,13 @@ def cmd_apply_assignment(args: argparse.Namespace) -> int:
     }
     _copy_tree(src, dest / "specs" / spec_id, mapping)
     (dest / "specs" / ".active").write_text(spec_id + "\n", encoding="utf-8")
+    bootstrap = dest / "specs" / "000-bootstrap" / "spec.md"
+    if bootstrap.is_file():
+        text = bootstrap.read_text(encoding="utf-8")
+        bootstrap.write_text(
+            re.sub(r"^Gate:\s*\w+", "Gate: done", text, count=1, flags=re.M),
+            encoding="utf-8",
+        )
     if example.is_dir():
         pkg = dest / "src" / args.module
         if (example / "models").is_dir():

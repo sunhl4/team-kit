@@ -23,6 +23,9 @@ def test_new_spec(tmp_path: Path) -> None:
     spec = tmp_path / "specs" / "042" / "spec.md"
     assert spec.is_file()
     assert "## Goal" in spec.read_text(encoding="utf-8")
+    assert "## Exclusive paths" in (tmp_path / "specs" / "042" / "plan.md").read_text(
+        encoding="utf-8"
+    )
     assert (tmp_path / "specs" / ".active").read_text(encoding="utf-8").strip() == "042"
 
 
@@ -32,6 +35,7 @@ def test_new_pkg_and_import(tmp_path: Path) -> None:
     assert out.returncode == 0, out.stderr
     assert (dest / "AGENTS.md").is_file()
     assert (dest / ".agents" / "skills" / "use-lit-report" / "SKILL.md").is_file()
+    assert (dest / ".agents" / "skills" / "do-spec" / "SKILL.md").is_file()
     assert (dest / ".claude" / "skills").is_symlink()
     init = (dest / "src" / "demo_pkg" / "__init__.py").read_text(encoding="utf-8")
     assert "from demo_pkg.models.identity import PackageId" in init

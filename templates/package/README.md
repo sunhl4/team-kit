@@ -8,5 +8,5 @@ python3 scripts/team.py check
 {{package_name}} --schema
 ```
 
-新工作：`python3 scripts/team.py new-spec <id> <slug>`，先过 `spec-clarity-gate` 再改 `src/`。
+新工作：人说 `做 spec/<id>，用 implement-from-spec`。先过 `spec-clarity-gate`（人改 `Gate: pass`）再改 `src/`。
 文献报告用已有 `academic-paper` Skill，不要在本仓做调研。

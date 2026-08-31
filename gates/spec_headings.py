@@ -7,14 +7,17 @@ import argparse
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from common import gate_status  # noqa: E402
+
 REQUIRED = ("## Goal", "## Interface", "## Tests", "## Out of scope")
 
 
 def check_spec(path: Path) -> list[str]:
     text = path.read_text(encoding="utf-8")
     errors: list[str] = []
-    if "Gate:" not in text:
-        errors.append(f"{path}: missing 'Gate:' line")
+    if not gate_status(text):
+        errors.append(f"{path}: missing 'Gate: pending|pass|done' line")
     for heading in REQUIRED:
         if heading not in text:
             errors.append(f"{path}: missing {heading}")

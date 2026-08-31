@@ -7,8 +7,9 @@ description: Reviews a spec-branch MR for layering, gates, and spec fidelity. Us
 
 看 diff，不看对话态度。
 
-- 有 `spec_id`，且 `specs/<id>/spec.md` 在本次变更或已在仓内。
-- `src/` 没有超出 spec 的接口。
+- PR 正文 `spec_id` 与分支 `spec/<id>/` 一致。
+- 改 `src/` 时 Gate 已是 `pass`，且本 PR 没有把 Gate 改成 pass。
+- `src/` 落在 Exclusive paths；`--schema` 对 Interface；tasks 的 `test_*` 存在。
 - import 方向：models 不向上。
 - 新分支有测试。
 - 没有把文献综述写进本仓（应停在报告文件 + `card.md`）。

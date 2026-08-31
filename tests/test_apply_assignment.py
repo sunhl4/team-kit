@@ -16,6 +16,8 @@ def test_apply_assignment(tmp_path: Path) -> None:
     assert out.returncode == 0, out.stderr
     spec = dest / "specs" / "001" / "spec.md"
     assert "Gate: pass" in spec.read_text(encoding="utf-8")
+    bootstrap = dest / "specs" / "000-bootstrap" / "spec.md"
+    assert "Gate: done" in bootstrap.read_text(encoding="utf-8")
     cli = (dest / "src" / "route_pilot" / "entrypoints" / "cli.py").read_text(
         encoding="utf-8"
     )

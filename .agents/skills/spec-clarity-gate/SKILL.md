@@ -18,4 +18,6 @@ python3 scripts/team.py check --spec <id>
 3. 失败时返回什么，写了没有？
 4. Out of scope 是否排除了「顺便做」的功能？
 
-过关：在 `specs/<id>/spec.md` 文首加一行 `Gate: pass`。
+过关：**人**在 `specs/<id>/spec.md` 文首把 `Gate: pending` 改成 `Gate: pass`。agent 不准自己盖章。这一行必须单独合进 default，不能和 `src/` 出现在同一 PR。
+
+`plan.md` 必须有 `## Exclusive paths`，列出本 spec 独占的 `src/` / `tests/` 路径。`tasks.md` 每条带 `test_*` 名。

@@ -25,6 +25,14 @@ python3 scripts/team.py new-pkg route_map ~/src/route-map
 python3 scripts/team.py check
 ```
 
+组员口令（人只发这一句，不写 `src/`）：
+
+```text
+做 spec/042，用 implement-from-spec
+```
+
+改 `src/` 之前：人把 `Gate: pending` 改成 `pass` 并单独合进 default。agent 不准自己盖章。CLI `--schema`、`tasks.md` 的 `test_*`、`plan.md` Exclusive paths 都由 `team check` 对账。
+
 接到**已有仓**（不覆盖已有 `AGENTS.md`）：
 
 ```bash
