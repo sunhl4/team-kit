@@ -16,6 +16,7 @@ for p in \
   ".agents/skills/use-lit-report/SKILL.md" \
   ".agents/skills/idea-to-spec/SKILL.md" \
   ".agents/skills/implement-from-spec/SKILL.md" \
+  ".agents/skills/do-spec/SKILL.md" \
   "specs/001/spec.md" "specs/001/card.md" \
   "src/$MODULE/models/duration.py" \
   "src/$MODULE/services/makespan.py" \
@@ -26,15 +27,21 @@ done
 grep -q 'Gate: pass' "$DEST/specs/001/spec.md"
 grep -q '@AGENTS.md' "$DEST/CLAUDE.md"
 
-# No spec in the diff → red (git package)
+# Unbound src change and path-lease leak → red
 (
   cd "$DEST"
   git init -b main >/dev/null
   git add -A
   git -c user.email=kit@local -c user.name=kit commit -m init >/dev/null
   echo 'x = 1' > "src/$MODULE/models/leak.py"
-  if TEAM_BASE=HEAD python3 gates/spec_exists.py --root "$DEST"; then
-    echo "spec_exists should fail without spec in the diff" >&2
+  mv specs/.active /tmp/team-kit-active.$$
+  if TEAM_BASE=HEAD TEAM_SPEC_ID= python3 gates/spec_exists.py --root "$DEST"; then
+    echo "spec_exists should fail without bound spec_id" >&2
+    exit 1
+  fi
+  mv /tmp/team-kit-active.$$ specs/.active
+  if TEAM_BASE=HEAD python3 gates/path_lease.py --root "$DEST" --spec 001; then
+    echo "path_lease should reject files outside Exclusive paths" >&2
     exit 1
   fi
   rm -f "src/$MODULE/models/leak.py"

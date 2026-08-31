@@ -17,3 +17,7 @@ jobs:
       - run: bash gates/check.sh
         env:
           TEAM_BASE: origin/main
+          TEAM_HEAD_REF: ${{ github.head_ref }}
+          TEAM_PR_BODY: ${{ github.event.pull_request.body }}
+          TEAM_REQUIRE_BRANCH: ${{ github.event_name == 'pull_request' && '1' || '' }}
+          TEAM_REQUIRE_PR_SPEC: ${{ github.event_name == 'pull_request' && '1' || '' }}
